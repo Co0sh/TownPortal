@@ -1,0 +1,22 @@
+name: TownPortal
+main: pl.betoncraft.townportal.TownPortal
+description: Adds Portal Scrolls, which can teleport players to the town.
+authors: [Co0sh]
+softdepend: [BetonQuest]
+version: 1.0
+commands:
+  scroll:
+    description: Gives the player a scroll.
+    usage: /<command> player scroll
+    permission: townportal.give
+  townportalreload:
+    description: Reloads the configuration.
+    usage: /<command>
+    permission: townportal.reload
+permissions:
+  townportal.give:
+    default: op
+  townportal.reload:
+    default: op
+  townportal.use:
+    default: true

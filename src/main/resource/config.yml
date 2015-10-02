@@ -1,0 +1,12 @@
+standard_scroll:
+  name: '&aTown Portal'
+  lore:
+  - Right click to teleport to town
+  - '&3The scroll will be consumed'
+  loc: 100;200;300;world;270;90
+  id: paper
+  data: 0
+  teleport-msg: '&2You will be teleported soon. (5s)'
+  cancel-msg: '&3You have moved.'
+  done-msg: '&eYou have been teleported!'
+  delay: 5
