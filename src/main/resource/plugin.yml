@@ -3,7 +3,7 @@ main: pl.betoncraft.townportal.TownPortal
 description: Adds Portal Scrolls, which can teleport players to the town.
 authors: [Co0sh]
 softdepend: [BetonQuest]
-version: 1.0
+version: 1.1
 commands:
   scroll:
     description: Gives the player a scroll.

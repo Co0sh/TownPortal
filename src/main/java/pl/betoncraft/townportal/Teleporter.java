@@ -47,7 +47,7 @@ public class Teleporter implements Listener {
     private BukkitRunnable runnable;
 
     public Teleporter(Player p, Location l, int d, String m, String c, String f,
-            PortalScroll portalScroll) {
+            final PortalScroll portalScroll) {
         instance = this;
         player = p;
         loc    = l;
@@ -58,6 +58,7 @@ public class Teleporter implements Listener {
         player.sendMessage(m.replace('&', '§'));
         if (delay == 0) {
             player.teleport(loc);
+            portalScroll.fireEvents(player);
             return;
         }
         ScrollUseListener.add(player);
@@ -71,6 +72,7 @@ public class Teleporter implements Listener {
             public void run() {
                 player.teleport(loc);
                 player.sendMessage(done.replace('&', '§'));
+                portalScroll.fireEvents(player);
                 ScrollUseListener.remove(player);
                 HandlerList.unregisterAll(instance);
             }

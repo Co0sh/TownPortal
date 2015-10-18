@@ -28,6 +28,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
+import pl.betoncraft.betonquest.BetonQuest;
+import pl.betoncraft.betonquest.utils.PlayerConverter;
+
 /**
  * Represents a portal scroll.
  * 
@@ -42,6 +45,9 @@ public class PortalScroll {
     private String message;
     private String cancel;
     private String done;
+    private String fail;
+    private List<String> conditions;
+    private List<String> events;
 
     /**
      * Loads a portal scroll with given name from configuration.
@@ -120,10 +126,17 @@ public class PortalScroll {
                 + " seconds, do not move.";
         cancel = TownPortal.getInstance().getConfig().getString(name
                 + ".cancel-msg");
-        if (cancel == null) cancel = "§3Teleportation canceled.";
+        if (cancel == null) cancel = "§cTeleportation canceled.";
         done = TownPortal.getInstance().getConfig().getString(name
                 + ".done-msg");
         if (done == null) done = "§eTeleported!";
+        fail = TownPortal.getInstance().getConfig().getString(name
+                + ".fail-msg");
+        if (fail == null) fail = "§cYou cannot use this scroll now.";
+        conditions = TownPortal.getInstance().getConfig().getStringList(
+                name + ".conditions");
+        events = TownPortal.getInstance().getConfig().getStringList(
+                name + ".events");
     }
 
     /**
@@ -131,6 +144,10 @@ public class PortalScroll {
      */
     public String getName() {
         return name;
+    }
+    
+    public String getFailMessage() {
+        return fail;
     }
     
     /**
@@ -157,6 +174,38 @@ public class PortalScroll {
      */
     public boolean check(ItemStack item) {
         return this.item.isSimilar(item);
+    }
+    
+    /**
+     * Checks BetonQuest conditions for this scroll. Returns true if BetonQuest
+     * is not enabled.
+     * 
+     * @param player
+     *            ID of the player
+     * @return true if met or BetonQuest not enabled, false otherwise.
+     */
+    public boolean checkConditions(Player player) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("BetonQuest")) return true;
+        for (String conditionID : conditions) {
+            if (!BetonQuest.condition(PlayerConverter.getID(player), conditionID))
+                return false;
+        }
+        return true;
+    }
+    
+    /**
+     * Fires BetonQuest events for this scroll. If BetonQuest is not enabled it
+     * does nothing.
+     * 
+     * @param player
+     *            ID of the player
+     */
+    public void fireEvents(Player player) {
+        if (!Bukkit.getPluginManager().isPluginEnabled("BetonQuest")) return;
+        for (String eventID : events) {
+            BetonQuest.event(PlayerConverter.getID(player), eventID);
+        }
+        return;
     }
 
 }

@@ -24,10 +24,14 @@ Each of them have those configuration options:
 * `cancel-msg` - message displayed when the teleportation is canceled
   (for example because the player moved)
 * `done-msg` - message displayed after the delay has successfully passed
+* `fail-msg` - message displayed when the player does not meet all conditions
 * `delay` - amount of seconds the player has to wait until he's teleported;
   teleportation will be canceled if he moves or takes/deals damage; if you
   don't want any delay, just set it to 0 or remove this setting, cancel-msg and
   done-msg won't display then
+* `conditions` - list of BetonQuest conditions to check before teleportation.
+  If the conditions are not met, nothing will happen.
+* `events` - list of BetonQuest events to fire after the player has teleported. 
 
 ## Commands
 

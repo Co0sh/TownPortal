@@ -59,6 +59,10 @@ public class ScrollUseListener implements Listener {
             e.getPlayer().sendMessage("§3No permission.");
             return;
         }
+        if (!scroll.checkConditions(e.getPlayer())) {
+            e.getPlayer().sendMessage(scroll.getFailMessage().replace('&', '§'));
+            return;
+        }
         if (item.getAmount() == 1) {
             e.getPlayer().setItemInHand(null);
         } else {

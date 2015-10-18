@@ -1,4 +1,4 @@
-standard_scroll:
+example_scroll:
   name: '&aTown Portal'
   lore:
   - Right click to teleport to town
@@ -7,6 +7,11 @@ standard_scroll:
   id: paper
   data: 0
   teleport-msg: '&2You will be teleported soon. (5s)'
-  cancel-msg: '&3You have moved.'
+  cancel-msg: '&cYou have moved.'
   done-msg: '&eYou have been teleported!'
+  fail-msg: '&cYou don''t meet all conditions.'
   delay: 5
+  conditions:
+  - package.condition
+  events:
+  - package.event
